@@ -1,0 +1,167 @@
+/*
+  This is Lab test 4 (semester2);
+  This program was created by Ana Marcela Espinosa 
+  Student Number C20306516 
+  April 22 2021
+  
+  This program is designed for Shamrock Air to enter and display data for passengers.
+  The program will use functions (to enter and display the information) and structures(to hold the information)
+*/
+
+
+
+#include <stdio.h>
+#include <string.h>
+
+#define LETTER 3
+#define NAME 22
+#define SNAME 22
+#define SEAT 2
+#define DEST 22
+
+// this are my structure Templates
+
+//structure template for the flight date. which will be a nested structure
+struct date
+{
+  int day;
+  int month;
+  int year;
+};
+//structure template for the passenger information 
+struct passenger_rec
+{
+  char flight_letter[LETTER];
+  int flight_num;
+  char pass_name[NAME];
+  char pass_surname[SNAME];
+  char seat_letter[SEAT];
+  int seat_num;
+  char destination[DEST];
+  struct date flight_date;
+};
+
+//funtion signatures for entering the data and displating the data for the passengers  
+void display(struct passenger_rec, struct passenger_rec);
+void enter_data(struct passenger_rec, struct passenger_rec);
+
+int main()
+{
+  printf("\n\nWelcome to Shamrock Airlines!");
+  struct passenger_rec passenger1, passenger2;
+  struct passenger_rec *ptr;
+
+  ptr = &passenger1;
+  enter_data(passenger1,passenger2);
+  //display (passenger1,passenger2);
+  //display_second (passenger2);
+
+  
+
+  return 0;
+}
+
+//function to enter the data for passengers  
+void enter_data(struct passenger_rec p1, struct passenger_rec p2)
+{
+  int i;
+
+  //trave information for passenger 1
+  printf("\n\nThe travel information:\n"); 
+  
+  printf("\nPassenger: ");
+  
+  printf("\nEnter the first name for passenger: ");
+  fgets(p1.pass_name, NAME-1, stdin);
+  printf("\nEnter the Surname for passenger: ");
+  fgets(p1.pass_surname, SNAME-1, stdin);
+  printf("\nEnter the flight letter of the flight number: ");
+  fgets(p1.flight_letter, LETTER-1, stdin);
+  while(getchar() != '\n'); //clear the buffer
+  printf("\nEnter the flight number: ");
+  scanf("%d", &p1.flight_num); 
+  while(getchar() != '\n'); //clear the buffer
+  printf("\nEnter the seat number: ");
+  scanf("%d", &p1.seat_num);
+  while(getchar() != '\n'); //clear the buffer
+  printf("\nEnter the seat letter: ");
+  fgets(p1.seat_letter, SEAT-1, stdin);
+  while(getchar() != '\n'); //clear the buffer
+  printf("\nEnter the destination: ");
+  fgets(p1.destination, DEST-1, stdin);
+  
+  //the date is entered with a nested structure 
+  printf("\nEnter the flight date (day/month/year in separate lines):\n");
+  scanf("%d", &p1.flight_date.day);
+  scanf("%d", & p1.flight_date.month);
+  scanf("%d", & p1.flight_date.year);
+
+ 
+
+  //passenger 2 information:
+  printf("\nPassenger: ");
+  while(getchar() != '\n'); //clear the buffer
+  printf("\nEnter the first name for passenger: ");
+  fgets(p2.pass_name, NAME-1, stdin);
+  
+  printf("\nEnter the Surname for passenger: ");
+  fgets(p2.pass_surname, SNAME-1, stdin);
+
+  printf("\nEnter the flight letter of the flight number: ");
+  fgets(p2.flight_letter, LETTER-1, stdin);
+  while(getchar() != '\n'); //clear the buffer
+
+  printf("\nEnter the flight number: ");
+  scanf("%d", &p2.flight_num);
+
+  while(getchar() != '\n');//clear the buffer
+  printf("\nEnter the seat number: ");
+  scanf("%d", &p2.seat_num);
+
+  while(getchar() != '\n');//clear the buffer
+  printf("\nEnter the seat letter: ");
+  fgets(p2.seat_letter, SEAT-1, stdin);
+
+  while(getchar() != '\n'); //clear the buffer
+  printf("\nEnter the destination: ");
+  fgets(p2.destination, DEST-1, stdin);
+
+
+  //this is where the nested structure is used
+  printf("\nEnter the flight date (day/month/year in separate lines):\n");
+  scanf("%d", &p2.flight_date.day);
+  scanf("%d", & p2.flight_date.month);
+  scanf("%d", & p2.flight_date.year);
+  
+
+ display(p1,p2); //this will send a copy to display function and display the content. 
+}
+//This function will display the information for both passengers and will display a goodbye text.
+void display(struct passenger_rec pass1, struct passenger_rec pass2)
+{
+  //displaying information for passenger 1
+  printf("\nThe Travelling Record is: ");
+  printf("\nFirst Name: %s", pass1.pass_name);
+  printf("\nSurname: %s", pass1.pass_surname);
+  printf("\nFlight Number: %s%d", pass1.flight_letter, pass1.flight_num);
+  printf("\nSeat: %s%d", pass1.seat_letter, pass1.seat_num);
+  printf("\nDestination: %s", pass1.destination);
+  printf("\nFlight Date: ");
+  printf("\nDay: %d", pass1.flight_date.day);
+  printf("\nMonth: %d", pass1.flight_date.month);
+  printf("\nYear: %d", pass1.flight_date.year);
+
+  //display travel information for passenger 2
+  printf("\n\nThe Travelling Record is: ");
+  printf("\nFirst Name: %s", pass2.pass_name);
+  printf("\nSurname: %s", pass2.pass_surname);
+  printf("\nFlight Number: %s%d", pass1.flight_letter, pass1.flight_num);
+  printf("\nSeat: %s%d", pass2.seat_letter, pass1.seat_num);
+  printf("\nDestination: %s", pass2.destination);
+  printf("\nFlight Date: ");
+  printf("\nDay: %d", pass2.flight_date.day);
+  printf("\nMonth: %d", pass2.flight_date.month);
+  printf("\nYear: %d", pass2.flight_date.year);
+
+  printf("\n\nHave a nice flight!");
+}
